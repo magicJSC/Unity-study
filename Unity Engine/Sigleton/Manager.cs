@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Manager : MonoBehaviour
+public class Managers : MonoBehaviour
 {
-    static Manager s_instance;
-    static public Manager Instance { get { return s_instance; } }
+    static Managers s_instance;
+    static public Managers Instance { get { return s_instance; } }
     void Start()
     {
         Init();
@@ -19,10 +19,10 @@ public class Manager : MonoBehaviour
             if (go == null)
             {
                 go = new GameObject { name = "@Manager" };
-                go.AddComponent<Manager>();
+                go.AddComponent<Managers>();
             }
             DontDestroyOnLoad(go);
-            s_instance = go.GetComponent<Manager>();
+            s_instance = go.GetComponent<Managers>();
         }
 
     }
