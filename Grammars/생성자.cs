@@ -10,7 +10,7 @@ namespace Csharp
         {
             hp = 100;
             at = 10;
-            Console.WriteLine("");  //이런것도 실행할수있다
+            Console.WriteLine("");  //이런것늘 실행할수있다
         }
         public Knight(int hp) : this()   //this()로 위에 생성자를 먼저 실행하게 만든다
         {
