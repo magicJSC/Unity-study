@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Manager : MonoBehaviour
+public class Manager : MonoBeHaviour
 {
     static Manager s_instance;
     public static Manager Instance { get { Init(); return s_instance; } } //유일한 매니저를 가져온다
