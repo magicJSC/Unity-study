@@ -13,7 +13,7 @@ namespace CSharp
         //    float[] arr = new float[10];
         //}
 
-        class MyList<T> where T : struct    //일반화 : T를 변수(int,string,float),클래스를 T에 넣어줘도 작동을 한다         where T : struct : T값이 값일때  class : 참조형식일떄  new() : 기본 생성자일떄   Monster : class
+        class MyList<T> where T : struct    //일반화 : T를 변수(int,string,float),클래스를 T에 넣어줘도 작동을 한다   where T : struct : T값이 값일때  class : 참조형식일떄  new() : 기본 생성자일떄   Monster : class
         {
             T[] arr = new T[10];
 
