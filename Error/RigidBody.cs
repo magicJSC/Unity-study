@@ -8,26 +8,11 @@ using static UnityEditor.PlayerSettings;
 
 public class Player : MonoBehaviour
 {
-    private float Speed  = 8f;    //ÇÃ·¹ÀÌ¾îÀÇ ÀÌµ¿¼Óµµ
-    public Vector3 Dir = Vector3.zero;     //ÇÃ·¹ÀÌ¾îÀÇ ¹æÇâ
-    Animator Ani;                           //ÇÃ·¹ÀÌ¾î ¿¡´Ï¸ŞÀÌ¼ÇÀ» À§ÇÑ animator
+    private float Speed  = 8f;    //í”Œë ˆì´ì–´ì˜ ì´ë™ì†ë„
+    public Vector3 Dir = Vector3.zero;     //í”Œë ˆì´ì–´ì˜ ë°©í–¥
+    Animator Ani;                           //í”Œë ˆì´ì–´ ì—ë‹ˆë©”ì´ì…˜ì„ ìœ„í•œ animator
     Vector3 Look = Vector3.zero;
 
-
-    public GameObject ScanObj = null;
-    [SerializeField]
-    TalkManager TalkManager;
-    [SerializeField]
-    Rigidbody2D Rigid;
-    [SerializeField]
-    ProcessManager QuestManager;
-    [SerializeField]
-    ObjectTalkManager ObjectTalkManager;
-    [SerializeField]
-    Menu menu;
-    [SerializeField]
-    SavePoint save;
-    public bool ismenu = false;
     private void Start()
     {
         
@@ -61,27 +46,13 @@ public class Player : MonoBehaviour
             { Look = Dir; }
             Debug.DrawRay(transform.position, Look, Color.yellow);
         }
-        LayerMask mask = LayerMask.GetMask("Npc") | LayerMask.GetMask("Object") | LayerMask.GetMask("SavePoint");
-        RaycastHit2D hit =Physics2D.Raycast(transform.position,Look,1f,mask);
-        if (hit.collider != null)
-        {
-            if (hit.collider.gameObject != null)
-            {
-                ScanObj = hit.collider.gameObject;
-                QuestManager.Interact(); 
-            }
-        }
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            ismenu = true;
-            menu.enabled = true;
-            menu.gameObject.SetActive(true);
-        }
+       
     }
     private void FixedUpdate()
     {
+        //Transformìœ¼ë¡œ ìœ„ì¹˜ ë³€ê²½ì„ í•˜ê³  colliderí•˜ë©´ ìºë¦­í„°ê°€ ë–¨ë¦¬ëŠ” í˜„ìƒì´ ë°œìƒ í•˜ëŠ”ë° RigidBodyë¡œ í•´ê²°í• ìˆ˜ìˆë‹¤
         if(TalkManager.IsTalking == false)
-        Rigid.MovePosition(transform.position + Dir * Speed * Time.deltaTime);
+        Rigid.MovePosition(transform.position + Dir * Speed * Time.deltaTime);        
     }
 }
 
