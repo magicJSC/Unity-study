@@ -9,9 +9,11 @@ namespace TextRPG
     class MyLinkedListNode<T>
     {
         public T Data;            //데이터가 들어감
-        public MyLinkedListNode<T> Next;      //주소값 저장
-        public MyLinkedListNode<T> Prev;
+        //주소값 저장  
+        public MyLinkedListNode<T> Next;    //다음 주소      
+        public MyLinkedListNode<T> Prev;    //이전 주소
     }
+    //O(1)
     class MyLinkedList<T>
     {
         public MyLinkedListNode<T> Head = null;    //첫번쨰
@@ -36,6 +38,7 @@ namespace TextRPG
             Count++;
             return newRoom;
         }
+        //O(1)
         public void Remove(MyLinkedListNode<T> room)    //room은 삭제할 것
         {
             //기존의 첫번째 방의 다음방을 첫번째 방으로 인정한다
