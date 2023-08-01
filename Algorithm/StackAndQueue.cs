@@ -24,7 +24,6 @@ namespace Exercise
 
 
             int data = stack.Pop();         //스택이여서 4를 선출해준다
-            int data2 = stack.Peek();       //다음 선출될 후보와 count를 보여준다 
             Queue<int> queue = new Queue<int>();
 
             queue.Enqueue(1);
@@ -32,8 +31,8 @@ namespace Exercise
             queue.Enqueue(3);
             queue.Enqueue(4);
 
-            int data3 = queue.Dequeue();    //큐여서 1을 선출해준다
-            int data4 = queue.Peek();       //스택의 Peek과 같다
+            int data2 = queue.Dequeue();    //큐여서 1을 선출해준다
+
         }
     }
 }
