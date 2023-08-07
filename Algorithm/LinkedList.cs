@@ -1,115 +1,81 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SysteMyLinkedList<T>;
+using SysteMyLinkedList<T>.Collections.Generic;
+using SysteMyLinkedList<T>.Linq;
+using SysteMyLinkedList<T>.Text;
+using SysteMyLinkedList<T>.Threading.Tasks;
 
-namespace TextRPG
+naMyLinkedList<T>espace TextRPG
 {
+    class MyLinkedList<T>
+    {
+        public T Data;
+        public MyLinkedList<T> Next;
+        public MyLinkedList<T> Prev;
+    }
+
+    class MyLinkedList<T><T>
+    {
+        public MyLinkedList<T> Head = null;    //첫번쨰
+        public MyLinkedList<T> Tail = null;    //마지막
+        public int Count = 0;
+
+        public MyLinkedList<T> AddLast(T data)
+        {
+            MyLinkedList<T> newRoom = new MyLinkedList<T>
+            newRooMyLinkedList<T>.Data = data;
+
+            //만약에 아직 방이 아예 없었다면,새로 추가된 첫번째 방이 Head다
+            if (Head == null)
+                Head = newRoom;
+
+            //기존에 마지막방과 새로 추가되는 방을 서로 연결해준다
+            if (Tail != null)
+            {
+                Tail.Next = newRoom;
+                newRoom.Prev = Tail;
+            }
+
+            //새로 추가되는 방을 마지막으로 인정해준다
+            Tail = newRoom;
+            Count++;
+            return newRoom;
+        }
+
+
+        public void Remove<T>(MyLinkedList<T> room)
+        {
+            //기존의 첫번쨰 방의 다음방을 첫번째 방으로 인정한다
+            if (Head == room)
+                Head = Head.Next;
+
+            //기존의 마지막 방의 이전방을 마지막 방으로 인정한다
+            if (Tail == room)
+                Tail = Tail.Prev;
+
+            if (room.Prev != null)
+                room.Prev.Next = room.Next;
+
+            if (room.Next != null)
+                room.Next.Prev = room.Prev;
+
+            Count--;
+
+        }
+    }
+
     class Board
     {
-        const char CIRCLE = '\u25cf';
-        public TileType[,] _tile;
-        public int _size;
+        public LinkedList<int> _data3 = new LinkedList<int>();  //연결리스트
 
-        public enum TileType
+        public void Initialize()
         {
-            Empty,
-            Wall,
-        }
-        public void Initialize(int size)
-        {
-            if(size % 2 == 0)
-            {
-                return;
-            }
-            _tile = new TileType[size, size];
-            _size = size;
+            _data3.AddLast(101);
+            _data3.AddLast(102);
+            LinkedListNode<int> node = _data3.AddLast(103);
+            _data3.AddLast(104);
+            _data3.AddLast(105);
 
-            GenerateByBinaryTree();
-
-            
-        }
-        public void GenerateByBinaryTree()
-        {
-            //길을 다 막는 작업
-            for (int y = 0; y < _size; y++)
-            {
-                for (int x = 0; x < _size; x++)
-                {
-                    if (x % 2 == 0 || y % 2 == 0)
-                    {
-                        _tile[y, x] = TileType.Wall;
-                    }
-                    else
-                    {
-                        _tile[y, x] = TileType.Empty;
-                    }
-                }
-            }
-
-            //길을 뚫어 버리는 작업
-            Random rand = new Random();
-            for (int y = 0; y < _size; y++)
-            {
-                for (int x = 0; x < _size; x++)
-                {
-                    if (x % 2 == 0 || y % 2 == 0)
-                        continue;
-
-                    if (y == _size - 2 && x == _size - 2)
-                    {
-                        continue;
-                    }
-                    if (y == _size - 2)
-                    {
-                        _tile[y, x + 1] = TileType.Empty;
-                        continue;
-                    }
-                    if (x == _size - 2)
-                    {
-                        _tile[y + 1, x] = TileType.Empty;
-                        continue;
-                    }
-                    if (rand.Next(0, 2) == 0)
-                    {
-                        _tile[y, x + 1] = TileType.Empty;
-                        continue;
-                    }
-                    else
-                    {
-                        _tile[y + 1, x] = TileType.Empty;
-                        continue;
-                    }
-
-                }
-            }
-        }
-        public void Render()
-        {
-            ConsoleColor prevColor = Console.ForegroundColor;
-            for (int y = 0; y < _size; y++)
-            {
-                for (int x = 0; x < _size; x++)
-                {
-                    Console.ForegroundColor = GetTileColor(_tile[y,x]);
-                    Console.Write(CIRCLE);
-                }
-                Console.WriteLine();
-            }
-            Console.ForegroundColor= prevColor;
-        }
-        ConsoleColor GetTileColor(TileType type)
-        {
-            switch (type)
-            {
-                case TileType.Wall:
-                    return ConsoleColor.Red;
-                case TileType.Empty:
-                    return ConsoleColor.Green;
-                default:
-                    return ConsoleColor.Green;
-            }
+            _data3.Remove<T>(node);
         }
     }
 }
