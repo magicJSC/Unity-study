@@ -43,10 +43,10 @@ public class UI_Test : UI_Popup
         Bind<Image>(typeof(Images));
 
 
-        GetButton((int)Buttons.PointButton).gameObject.AddUIEvent(OnButtonClicked); //Extention스크립트가 있어야 가능함
+        GetButton((int)Buttons.PointButton).gameObject.BindEvent(OnButtonClicked); //Extention스크립트가 있어야 가능함
         GameObject go = GetImage((int)Images.ItemIcon).gameObject;
 
-        AddUIEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
+        BindEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
     }
     int _score = 0;
     public void OnButtonClicked(PointerEventData data)
