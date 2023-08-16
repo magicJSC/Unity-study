@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class SoundTest : MonoBehaviour
 {
-    
+    public AudioClip AudioClip;
     void Start()
     {
-        Managers.Sound.Play("BGM/Winter Festival",Define.Sound.Effect);
+        Managers.Sound.Play(AudioClip,Define.Sound.Effect);
     }
 
 }

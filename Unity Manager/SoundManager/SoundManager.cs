@@ -29,19 +29,23 @@ public class SoundManager
         }
     }
 
-   public void Play(string path,Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
+    public void Clear()
     {
-        if (path.Contains("Sounds/") == false)
-            path = $"Sounds/{path}";
+        foreach(AudioSource audioSource in _audioSources)
+        {
+            audioSource.clip = null;
+            audioSource.Stop();
+        }
+        _audioClips.Clear();
+    }
+
+   public void Play(AudioClip audioClip,Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
+    {
+        if (audioClip == null)
+            return;
 
         if(type == Define.Sound.Bgm)
         {
-            AudioClip audioClip = Managers.Resource.Load<AudioClip>(path);
-            if(audioClip ==  null )
-            {
-                Debug.Log($"Missing Audio! {path}");
-                return;
-            }
 
             AudioSource audioSource = _audioSources[(int)Define.Sound.Bgm];
 
@@ -55,27 +59,43 @@ public class SoundManager
         }
         else
         {
-            AudioClip audioClip = GetOrAddAudioClip(path);
-            if (audioClip == null)
-            {
-                Debug.Log($"Missing Audio! {path}");
-                return;
-            }
-
             AudioSource audioSource = _audioSources[(int)Define.Sound.Effect];
             audioSource.pitch = pitch;
             audioSource.PlayOneShot(audioClip);
         }
     }
 
-    AudioClip GetOrAddAudioClip(string path)
+    public void Play(string path, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
     {
-        AudioClip audioClip = null;
-        if(_audioClips.TryGetValue(path, out audioClip))
-            return audioClip;
+         AudioClip audioClip = GetOrAddAudioClip(path, type);
 
-        audioClip = Managers.Resource.Load<AudioClip>(path);
-        _audioClips.Add(path, audioClip);
+        Play(audioClip, type, pitch);
+    }
+
+    AudioClip GetOrAddAudioClip(string path, Define.Sound type = Define.Sound.Effect)
+    {
+        if (path.Contains("Sounds/") == false)
+            path = $"Sounds/{path}";
+        
+        AudioClip audioClip = null;
+        if (type == Define.Sound.Bgm)
+        {
+            audioClip = Managers.Resource.Load<AudioClip>(path);
+        }
+        else
+        {
+            if (_audioClips.TryGetValue(path, out audioClip) == false)
+            {
+                audioClip = Managers.Resource.Load<AudioClip>(path);
+                _audioClips.Add(path, audioClip);
+            }
+        }
+
+        if (audioClip == null)
+        {
+            Debug.Log($"Missing Audio! {path}");
+        }
+
         return audioClip;
     }
 }
